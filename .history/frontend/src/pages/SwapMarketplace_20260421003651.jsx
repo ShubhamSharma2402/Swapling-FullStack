@@ -29,7 +29,7 @@ const SwapMarketplace = () => {
 
   const fetchSwaps = async () => {
     try {
-      const response = await fetch('https://swapling-fullstack-1.onrender.com//api/swaps');
+      const response = await fetch('http://localhost:5000/api/swaps');
       const data = await response.json();
       setSwaps(data);
     } catch (err) {
@@ -52,7 +52,7 @@ const SwapMarketplace = () => {
     
     setIsSubmitting(true);
     try {
-      const response = await fetch('https://swapling-fullstack-1.onrender.com//api/swaps', {
+      const response = await fetch('http://localhost:5000/api/swaps', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ itemName, materials, description, image, price: price ? Number(price) : undefined })
