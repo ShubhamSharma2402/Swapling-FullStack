@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #10B981;
+  --color-secondary: #047857;
+}
+
+body {
+  background-color: #f3f4f6; /* light gray as requested */
+  color: #1f2937; /* gray-800 */
+}
+
+/* Add custom animations or styles here if needed */
