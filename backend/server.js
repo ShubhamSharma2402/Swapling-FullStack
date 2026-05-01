@@ -13,18 +13,27 @@ const app = express();
 app.use(cors());
 app.use(express.json({ limit: '10mb' }));
 
-// MongoDB connection (with fallback if not running)
-const mongoURI = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/swapling';
-mongoose.connect(mongoURI)
-  .then(() => console.log('MongoDB Connected'))
-  .catch(err => console.log('MongoDB connection error (Falling back to Mock data):', err.message));
+// MongoDB connection
+const mongoURI = process.env.MONGO_URI;
+
+if (!mongoURI) {
+  console.error('CRITICAL ERROR: MONGO_URI is not defined in environment variables.');
+  console.log('Falling back to local development database...');
+}
+
+mongoose.connect(mongoURI || 'mongodb://127.0.0.1:27017/swapling')
+  .then(() => console.log('MongoDB Connected Successfully'))
+  .catch(err => {
+    console.error('MongoDB connection error:', err.message);
+    process.exit(1); // Exit if cannot connect in production
+  });
 
 // Routes
 app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/swaps', swapRoutes);
 
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });

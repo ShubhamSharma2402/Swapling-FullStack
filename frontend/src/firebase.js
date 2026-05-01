@@ -6,12 +6,12 @@ import { getAuth, GoogleAuthProvider } from 'firebase/auth';
 // typically requires the authDomain and projectId to successfully popup the Google sign-in.
 // If you encounter an error, make sure to copy the FULL config object from Firebase console.
 const firebaseConfig = {
-  apiKey: "AIzaSyBk8mEqoH3LhGaekDSXZoG1U6jiETeXDLM",
-  authDomain: "swapling-6a79a.firebaseapp.com", 
-  projectId: "swapling-6a79a", 
-  storageBucket: "swapling-6a79a.firebasestorage.app",
-  messagingSenderId: "889130313539",
-  appId: "1:889130313539:web:c6a5729ea9780ecc9571f6"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID
 };
 
 // Initialize Firebase

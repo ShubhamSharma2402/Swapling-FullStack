@@ -1,6 +1,7 @@
 import { useState, useContext, useEffect } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { PackageOpen, Handshake, Calendar, Loader2, Leaf } from 'lucide-react';
+import API_BASE_URL from '../apiConfig';
 
 const SwapMarketplace = () => {
   const { user } = useContext(AuthContext);
@@ -29,7 +30,7 @@ const SwapMarketplace = () => {
 
   const fetchSwaps = async () => {
     try {
-      const response = await fetch('https://swapling-fullstack-1.onrender.com//api/swaps');
+      const response = await fetch(`${API_BASE_URL}/api/swaps`);
       const data = await response.json();
       setSwaps(data);
     } catch (err) {
@@ -52,7 +53,7 @@ const SwapMarketplace = () => {
     
     setIsSubmitting(true);
     try {
-      const response = await fetch('https://swapling-fullstack-1.onrender.com//api/swaps', {
+      const response = await fetch(`${API_BASE_URL}/api/swaps`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ itemName, materials, description, image, price: price ? Number(price) : undefined })

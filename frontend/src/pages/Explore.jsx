@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import ProductCard from '../components/ProductCard';
 import SearchBar from '../components/SearchBar';
 import { Loader2 } from 'lucide-react';
+import API_BASE_URL from '../apiConfig';
 
 const Explore = () => {
   const [products, setProducts] = useState([]);
@@ -13,7 +14,7 @@ const Explore = () => {
     // Fetch products from backend
     const fetchProducts = async () => {
       try {
-        const response = await fetch('https://swapling-fullstack-1.onrender.com//api/products');
+        const response = await fetch(`${API_BASE_URL}/api/products`);
         if (response.ok) {
           const data = await response.json();
           setProducts(data);
