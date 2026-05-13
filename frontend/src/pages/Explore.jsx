@@ -4,8 +4,15 @@ import SearchBar from '../components/SearchBar';
 import { Loader2 } from 'lucide-react';
 import API_BASE_URL from '../apiConfig';
 
+const INITIAL_PRODUCTS = [
+  { _id: '1', name: 'Bamboo Toothbrush', ecoScore: 9, material: 'Bamboo, Nylon', prices: { amazon: 120, flipkart: 110 }, imageUrl: 'https://images.unsplash.com/photo-1607613009820-a29f7bb81c04?w=400', description: 'Sustainable bamboo toothbrush. Good alternative to plastic.' },
+  { _id: '2', name: 'Plastic Bottle', ecoScore: 2, material: 'PET Plastic', prices: { amazon: 20, flipkart: 20 }, imageUrl: 'https://images.unsplash.com/photo-1614846027182-53f7ecba1672?w=400', description: 'Harmful single-use plastic water bottle.' },
+  { _id: '3', name: 'Steel Water Bottle', ecoScore: 8, material: 'Stainless Steel', prices: { amazon: 499, flipkart: 450 }, imageUrl: 'https://images.unsplash.com/photo-1602143399827-bd95ef6f0c26?w=400', description: 'Reusable steel water bottle. Best for environment.' },
+  { _id: '4', name: 'Cotton Tote Bag', ecoScore: 7, material: 'Organic Cotton', prices: { amazon: 150, flipkart: 140 }, imageUrl: 'https://images.unsplash.com/photo-1544816155-12df9643f363?w=400', description: 'Reusable shopping bag made of organic cotton.' }
+];
+
 const Explore = () => {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState(INITIAL_PRODUCTS);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterScore, setFilterScore] = useState('all');
@@ -62,7 +69,7 @@ const Explore = () => {
         setFilterScore={setFilterScore} 
       />
 
-      {loading ? (
+      {loading && products.length === 0 ? (
         <div className="flex justify-center items-center py-20">
           <Loader2 className="w-10 h-10 animate-spin text-primary" />
         </div>

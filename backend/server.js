@@ -33,7 +33,26 @@ app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/swaps', swapRoutes);
 
+// Health Check Endpoint
+app.get('/api/health', (req, res) => {
+  res.status(200).json({ status: 'OK', message: 'Server is awake' });
+});
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
+    
+    // Keep-alive logic for Render cold starts
+    const url = process.env.RENDER_EXTERNAL_URL;
+    if (url) {
+        console.log(`Keep-alive enabled. Pinging ${url} every 14 minutes.`);
+        setInterval(() => {
+            const https = require('https');
+            https.get(`${url}/api/health`, (res) => {
+                console.log(`Self-ping successful: ${res.statusCode}`);
+            }).on('error', (err) => {
+                console.error(`Self-ping failed: ${err.message}`);
+            });
+        }, 14 * 60 * 1000); // 14 minutes
+    }
 });

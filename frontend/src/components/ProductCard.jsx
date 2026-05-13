@@ -22,6 +22,7 @@ const ProductCard = ({ product }) => {
         <img 
           src={product.imageUrl || "https://placehold.co/400x300"} 
           alt={product.name} 
+          loading="lazy"
           className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
         />
         <div className="absolute top-2 right-2 flex gap-1">
